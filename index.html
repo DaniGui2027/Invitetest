@@ -6,7 +6,8 @@
   <title>Invitación Daniel & Gabriela</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  
   <style>
     * {
       box-sizing: border-box;
@@ -19,167 +20,210 @@
       height: 100%;
       overflow: hidden;
       font-family: 'Cinzel', serif;
-      background-color: #0d0a09;
+      background-color: #080606;
     }
 
-    /* Envelope & Paper Background */
-    #wrapper {
+    /* Fullscreen dark vignette background */
+    #stage {
       position: fixed;
       inset: 0;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at center, #2c1b18 0%, #0d0a09 100%);
+      background: 
+        radial-gradient(circle at 50% 50%, rgba(40, 24, 20, 0.85) 0%, rgba(8, 6, 6, 0.98) 100%),
+        url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1000&auto=format&fit=crop') center/cover;
+      background-blend-mode: overlay;
       z-index: 10;
     }
 
-    .paper-card {
+    /* Vintage Linen Invitation Card */
+    .envelope-card {
       position: relative;
       width: 90%;
-      max-width: 440px;
-      padding: 40px 20px;
-      background: #fcf9f2;
-      border-radius: 12px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 60px rgba(184, 152, 103, 0.2);
-      border: 1px solid #e0d5c1;
+      max-width: 420px;
+      padding: 50px 24px 40px 24px;
+      background: #FAF7F2;
+      border-radius: 4px;
+      box-shadow: 
+        0 30px 90px rgba(0, 0, 0, 0.85),
+        inset 0 0 80px rgba(180, 140, 90, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+      border: 1px solid #D8CEBE;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
+      gap: 30px;
     }
 
-    .title {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.8rem;
-      color: #5c1d24;
-      text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
-    }
-
-    .subtitle {
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-      color: #7a6b5d;
+    .names {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #362826;
       text-transform: uppercase;
+      line-height: 1.2;
     }
 
-    /* 1800s Wax Seal Button */
-    .seal-button {
-      background: none;
-      border: none;
+    .sub-title {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      color: #8C7867;
+      text-transform: uppercase;
+      margin-top: -15px;
+    }
+
+    /* 3D Wax Seal Button */
+    .seal-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
       cursor: pointer;
-      outline: none;
-      padding: 10px;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .seal-button:hover {
-      transform: scale(1.08) rotate(2deg);
+    .wax-seal {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      /* 19th Century Deep Royal Burgundy Wax Shader */
+      background: 
+        radial-gradient(circle at 32% 28%, #d13434 0%, #800f12 45%, #4a0507 80%, #2b0203 100%);
+      box-shadow: 
+        0 18px 40px rgba(0, 0, 0, 0.65),
+        0 6px 10px rgba(0, 0, 0, 0.4),
+        inset 0 4px 8px rgba(255, 255, 255, 0.45),
+        inset 0 -8px 16px rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+      /* Organic wax pool shape */
+      clip-path: polygon(
+        50% 0%, 63% 2%, 76% 7%, 88% 16%, 96% 29%, 100% 45%, 
+        97% 62%, 91% 77%, 80% 89%, 66% 97%, 49% 100%, 
+        33% 97%, 18% 90%, 8% 77%, 1% 61%, 0% 44%, 
+        5% 28%, 14% 15%, 28% 5%, 39% 1%
+      );
     }
 
-    .seal-button:active {
-      transform: scale(0.95);
+    .seal-container:hover .wax-seal {
+      transform: scale(1.06) rotate(1deg);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.75);
     }
 
-    .instructions {
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      color: #8c7a6b;
+    /* Inner Stamped Rim & Foil Monogram */
+    .seal-emboss {
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      border: 2px dashed rgba(212, 175, 55, 0.55);
+      box-shadow: 
+        inset 0 3px 6px rgba(0,0,0,0.6),
+        0 1px 2px rgba(255,255,255,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08) 0%, transparent 70%);
+    }
+
+    .monogram {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.7rem;
+      font-weight: 600;
+      font-style: italic;
+      /* Embossed Gold Foil Texture */
+      background: linear-gradient(135deg, #FFE89C 0%, #D4AF37 40%, #AA771C 70%, #634208 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.85));
+      letter-spacing: -1px;
+    }
+
+    .click-prompt {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: #9E8976;
       text-transform: uppercase;
-      animation: pulse 1.8s infinite ease-in-out;
+      animation: pulseText 2s infinite ease-in-out;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; }
+    @keyframes pulseText {
+      0%, 100% { opacity: 0.4; }
       50% { opacity: 1; }
     }
 
-    /* Break Animation */
-    .seal-button.breaking {
-      animation: sealBreak 0.8s forwards ease-in-out;
+    /* Seal Opening Particle Transition */
+    .seal-container.shatter {
+      animation: waxCrack 0.8s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045);
     }
 
-    @keyframes sealBreak {
+    @keyframes waxCrack {
       0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.3) rotate(-8deg); opacity: 0.9; }
-      100% { transform: scale(1.8) rotate(12deg); opacity: 0; }
+      40% { transform: scale(1.25) rotate(-6deg); opacity: 0.9; }
+      100% { transform: scale(2.2) rotate(15deg); opacity: 0; filter: blur(4px); }
+    }
+
+    .stage-fade {
+      transition: opacity 1s ease-out, transform 1s ease-out;
+      opacity: 0 !important;
+      transform: scale(1.08) !important;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Audio Element -->
-  <audio id="invitation-audio" preload="auto">
+  <!-- Background Music Stream -->
+  <audio id="bg-audio" loop preload="auto">
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113253.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Interactive Seal Overlay -->
-  <div id="wrapper">
-    <div class="paper-card">
-      <div class="title">Daniel & Gabriela</div>
-      <div class="subtitle">Nuestra Invitación</div>
+  <!-- Opening Envelope Card -->
+  <div id="stage">
+    <div class="envelope-card">
+      <div class="names">Daniel & Gabriela</div>
+      <div class="sub-title">Nuestra Invitación</div>
 
-      <!-- Wax Seal SVG -->
-      <button class="seal-button" id="sealBtn" aria-label="Abrir invitación">
-        <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="waxGrad" cx="35%" cy="35%" r="65%">
-              <stop offset="0%" stop-color="#b82626"/>
-              <stop offset="50%" stop-color="#800e0e"/>
-              <stop offset="100%" stop-color="#4a0404"/>
-            </radialGradient>
-            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f9e79f"/>
-              <stop offset="50%" stop-color="#d4ac0d"/>
-              <stop offset="100%" stop-color="#7d6608"/>
-            </linearGradient>
-            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="2" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.6"/>
-            </filter>
-          </defs>
-          
-          <!-- Outer Irregular Wax Shape -->
-          <path d="M100,12 C125,10 148,20 165,37 C182,54 190,78 188,102 C186,126 175,149 157,165 C139,181 114,190 90,187 C66,184 43,171 28,153 C13,135 7,111 11,87 C15,63 29,41 48,26 C67,11 88,12 100,12 Z" 
-                fill="url(#waxGrad)" filter="url(#shadow)"/>
-          
-          <!-- Inner Rim -->
-          <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="4"/>
-          <circle cx="100" cy="100" r="66" fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="6,4"/>
-          
-          <!-- Monogram D&G -->
-          <text x="100" y="112" 
-                font-family="'Georgia', serif" 
-                font-size="44" 
-                font-weight="bold" 
-                font-style="italic" 
-                fill="url(#goldGrad)" 
-                text-anchor="middle"
-                style="filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.8));">D&amp;G</text>
-        </svg>
-      </button>
+      <div class="seal-container" id="sealBtn">
+        <div class="wax-seal">
+          <div class="seal-emboss">
+            <div class="monogram">D&G</div>
+          </div>
+        </div>
+      </div>
 
-      <div class="instructions">Haz clic en el sello para abrir</div>
+      <div class="click-prompt">Toca el sello para abrir</div>
     </div>
   </div>
 
   <script>
     const sealBtn = document.getElementById('sealBtn');
-    const audio = document.getElementById('invitation-audio');
-    const CANVA_URL = "https://tiger-f5rc4h.my.canva.site/invitaciondyg";
+    const stage = document.getElementById('stage');
+    const audio = document.getElementById('bg-audio');
+    const TARGET_URL = "https://tiger-f5rc4h.my.canva.site/invitaciondyg";
 
     sealBtn.addEventListener('click', () => {
-      // 1. Play song sound
-      audio.play().catch(e => console.log('Audio playback status:', e));
+      // Start audio playback
+      audio.play().catch(err => console.log("Audio playback:", err));
 
-      // 2. Animate seal opening
-      sealBtn.classList.add('breaking');
+      // Trigger 3D crack animation
+      sealBtn.classList.add('shatter');
 
-      // 3. Navigate directly to Canva site after animation
+      // Fade out background card smoothly
       setTimeout(() => {
-        window.location.href = CANVA_URL;
-      }, 700);
+        stage.classList.add('stage-fade');
+      }, 400);
+
+      // Transition to Canva link
+      setTimeout(() => {
+        window.location.href = TARGET_URL;
+      }, 1100);
     });
   </script>
 </body>
