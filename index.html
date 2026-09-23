@@ -3,17 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitación D&G</title>
+  <title>Invitación Daniel & Gabriela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --wax-red: #8B0000;
-      --wax-dark: #580000;
-      --gold-light: #F7E08B;
-      --gold-mid: #D4AF37;
-      --gold-dark: #AA771C;
-      --paper-color: #FDFBF7;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -24,218 +18,168 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      font-family: 'Cinzel', 'Georgia', serif;
-      background-color: #121212;
+      font-family: 'Cinzel', serif;
+      background-color: #0d0a09;
     }
 
-    /* Container for iframe */
-    #canva-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Envelope / Cover Overlay */
-    #envelope-overlay {
+    /* Envelope & Paper Background */
+    #wrapper {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at center, #2c2523 0%, #0f0c0b 100%);
-      transition: opacity 1.2s ease-in-out, visibility 1.2s;
-    }
-
-    .paper-texture {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: var(--paper-color);
-      background-image: 
-        radial-gradient(#e3ded1 1px, transparent 0),
-        radial-gradient(#e3ded1 1px, var(--paper-color) 0);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      opacity: 0.95;
-      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
-    }
-
-    .invitation-text {
-      position: absolute;
-      top: 25%;
-      text-align: center;
-      color: #4a3e3d;
-      letter-spacing: 3px;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      opacity: 0.85;
-      animation: pulseText 2s infinite alternate ease-in-out;
-    }
-
-    @keyframes pulseText {
-      from { opacity: 0.6; transform: scale(0.98); }
-      to { opacity: 0.95; transform: scale(1); }
-    }
-
-    /* 1800s Wax Seal Styling */
-    .seal-wrapper {
-      position: relative;
-      z-index: 20;
-      cursor: pointer;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .wax-seal {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #b22222, var(--wax-red) 65%, var(--wax-dark) 100%);
-      box-shadow: 
-        0 10px 25px rgba(0, 0, 0, 0.5),
-        inset 0 3px 6px rgba(255, 255, 255, 0.3),
-        inset 0 -6px 12px rgba(0, 0, 0, 0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      /* Organic wax edge shape */
-      clip-path: polygon(
-        50% 0%, 65% 3%, 79% 8%, 91% 19%, 97% 33%, 
-        100% 50%, 96% 68%, 89% 82%, 76% 93%, 60% 98%, 
-        43% 97%, 27% 93%, 12% 81%, 3% 65%, 0% 48%, 
-        4% 31%, 13% 16%, 28% 6%
-      );
-    }
-
-    .seal-wrapper:hover .wax-seal {
-      transform: scale(1.04);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
-    }
-
-    /* Inner Ring and Monogram */
-    .seal-inner {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 2px dashed rgba(212, 175, 55, 0.6);
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+      inset: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      background: radial-gradient(circle at center, #2c1b18 0%, #0d0a09 100%);
+      z-index: 10;
+    }
+
+    .paper-card {
       position: relative;
+      width: 90%;
+      max-width: 440px;
+      padding: 40px 20px;
+      background: #fcf9f2;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 60px rgba(184, 152, 103, 0.2);
+      border: 1px solid #e0d5c1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
     }
 
-    .monogram {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-size: 2.2rem;
-      font-weight: bold;
-      font-style: italic;
-      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 50%, var(--gold-dark) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-      letter-spacing: 1px;
+    .title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      color: #5c1d24;
+      text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
     }
 
-    .seal-laurel {
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .sub-text {
-      font-size: 0.6rem;
-      color: var(--gold-light);
-      letter-spacing: 2px;
-      margin-top: -4px;
-      opacity: 0.8;
+    .subtitle {
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      color: #7a6b5d;
       text-transform: uppercase;
     }
 
-    /* Split Animation for Seal Opening */
-    .seal-wrapper.open .wax-seal {
-      animation: breakSeal 0.8s forwards ease-in-out;
+    /* 1800s Wax Seal Button */
+    .seal-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      padding: 10px;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      -webkit-tap-highlight-color: transparent;
     }
 
-    @keyframes breakSeal {
+    .seal-button:hover {
+      transform: scale(1.08) rotate(2deg);
+    }
+
+    .seal-button:active {
+      transform: scale(0.95);
+    }
+
+    .instructions {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: #8c7a6b;
+      text-transform: uppercase;
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Break Animation */
+    .seal-button.breaking {
+      animation: sealBreak 0.8s forwards ease-in-out;
+    }
+
+    @keyframes sealBreak {
       0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2) rotate(5deg); opacity: 0.9; }
-      100% { transform: scale(1.5) rotate(-10deg); opacity: 0; }
-    }
-
-    /* Overlay Slide Away */
-    #envelope-overlay.fade-out {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+      50% { transform: scale(1.3) rotate(-8deg); opacity: 0.9; }
+      100% { transform: scale(1.8) rotate(12deg); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Audio element (Replace src with your invitation song link if needed) -->
-  <audio id="invitation-music" loop preload="auto">
+  <!-- Audio Element -->
+  <audio id="invitation-audio" preload="auto">
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113253.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Canva Website Embed -->
-  <div id="canva-container">
-    <iframe id="canva-frame" src="https://tiger-f5rc4h.my.canva.site/invitaciondyg" allow="autoplay"></iframe>
-  </div>
+  <!-- Interactive Seal Overlay -->
+  <div id="wrapper">
+    <div class="paper-card">
+      <div class="title">Daniel & Gabriela</div>
+      <div class="subtitle">Nuestra Invitación</div>
 
-  <!-- Opening Envelope Screen -->
-  <div id="envelope-overlay">
-    <div class="paper-texture"></div>
-    <div class="invitation-text">Has sido invitado<br><span style="font-size: 0.8rem; font-style: italic;">Haz clic en el sello para abrir</span></div>
-    
-    <div class="seal-wrapper" id="sealBtn">
-      <div class="wax-seal">
-        <div class="seal-laurel"></div>
-        <div class="seal-inner">
-          <div class="monogram">D&G</div>
-          <div class="sub-text">Abrir</div>
-        </div>
-      </div>
+      <!-- Wax Seal SVG -->
+      <button class="seal-button" id="sealBtn" aria-label="Abrir invitación">
+        <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="waxGrad" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#b82626"/>
+              <stop offset="50%" stop-color="#800e0e"/>
+              <stop offset="100%" stop-color="#4a0404"/>
+            </radialGradient>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f9e79f"/>
+              <stop offset="50%" stop-color="#d4ac0d"/>
+              <stop offset="100%" stop-color="#7d6608"/>
+            </linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.6"/>
+            </filter>
+          </defs>
+          
+          <!-- Outer Irregular Wax Shape -->
+          <path d="M100,12 C125,10 148,20 165,37 C182,54 190,78 188,102 C186,126 175,149 157,165 C139,181 114,190 90,187 C66,184 43,171 28,153 C13,135 7,111 11,87 C15,63 29,41 48,26 C67,11 88,12 100,12 Z" 
+                fill="url(#waxGrad)" filter="url(#shadow)"/>
+          
+          <!-- Inner Rim -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="4"/>
+          <circle cx="100" cy="100" r="66" fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="6,4"/>
+          
+          <!-- Monogram D&G -->
+          <text x="100" y="112" 
+                font-family="'Georgia', serif" 
+                font-size="44" 
+                font-weight="bold" 
+                font-style="italic" 
+                fill="url(#goldGrad)" 
+                text-anchor="middle"
+                style="filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.8));">D&amp;G</text>
+        </svg>
+      </button>
+
+      <div class="instructions">Haz clic en el sello para abrir</div>
     </div>
   </div>
 
   <script>
     const sealBtn = document.getElementById('sealBtn');
-    const overlay = document.getElementById('envelope-overlay');
-    const music = document.getElementById('invitation-music');
+    const audio = document.getElementById('invitation-audio');
+    const CANVA_URL = "https://tiger-f5rc4h.my.canva.site/invitaciondyg";
 
     sealBtn.addEventListener('click', () => {
-      // 1. Play Background Music
-      music.play().catch(error => {
-        console.log("Audio autoplay prevented by browser policy: ", error);
-      });
+      // 1. Play song sound
+      audio.play().catch(e => console.log('Audio playback status:', e));
 
-      // 2. Trigger Seal Breaking Animation
-      sealBtn.classList.add('open');
+      // 2. Animate seal opening
+      sealBtn.classList.add('breaking');
 
-      // 3. Fade out overlay and reveal Canva site
+      // 3. Navigate directly to Canva site after animation
       setTimeout(() => {
-        overlay.classList.add('fade-out');
-      }, 600);
+        window.location.href = CANVA_URL;
+      }, 700);
     });
   </script>
 </body>
