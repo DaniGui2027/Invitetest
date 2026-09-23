@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniela & Guilherme</title>
+    <style>
+        :root {
+            --bg-color: #E2E4D4; /* Sage green background matching your site */
+            --env-color: #F7F5EE; /* Off-white / Cream envelope base */
+            --env-inside: #EAE6DB; /* Shadow interior */
+            --flap-color: #ECE9DF; /* Envelope flap */
+            --gold: #D4AF37; /* Gold accent for the seal */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'serif';
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(0.95);
+        }
+
+        .envelope {
+            position: relative;
+            width: 450px;
+            height: 300px;
+            background-color: var(--env-inside);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Front pockets of the envelope */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            z-index: 3;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            border-bottom: 150px solid var(--env-color);
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .envelope::after {
+            content: '';
+            position: absolute;
+            z-index: 3;
+            border-top: 150px solid transparent;
+            border-bottom: 150px solid transparent;
+            border-left: 230px solid var(--env-color);
+            top: 0;
+            left: 0;
+            border-radius: 0 0 0 8px;
+        }
+
+        .right-side {
+            position: absolute;
+            z-index: 3;
+            border-top: 150px solid transparent;
+            border-bottom: 150px solid transparent;
+            border-right: 230px solid var(--env-color);
+            top: 0;
+            right: 0;
+            border-radius: 0 0 8px 0;
+        }
+
+        /* Top Flap */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            border-top: 160px solid var(--flap-color);
+            transform-origin: top;
+            z-index: 4;
+            transition: transform 0.5s ease-in-out, z-index 0.2s 0.2s;
+            width: 0;
+            height: 0;
+        }
+
+        /* Golden Wax Seal */
+        .seal {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #f3d06c 0%, var(--gold) 100%);
+            border-radius: 50%;
+            top: 135px;
+            left: 200px;
+            z-index: 5;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease-in-out, opacity 0.3s 0.3s;
+        }
+
+        .seal::before {
+            content: '♥';
+            color: #fff;
+            font-size: 22px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* The Card inside */
+        .card {
+            position: absolute;
+            background: #FFFDF9;
+            width: 410px;
+            height: 260px;
+            left: 20px;
+            top: 20px;
+            z-index: 2;
+            transition: transform 0.6s 0.4s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #EAE6DB;
+        }
+
+        .card h1 {
+            font-family: 'Great Vibes', 'Georgia', serif;
+            color: #605141;
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: #8A7F71;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Open State Animations */
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.open .seal {
+            transform: translateY(-100px) rotate(20deg);
+            opacity: 0;
+        }
+
+        .envelope-wrapper.open .card {
+            transform: translateY(-180px);
+            z-index: 4;
+        }
+
+        /* Responsive scale for mobile devices */
+        @media (max-width: 500px) {
+            .envelope-wrapper {
+                transform: scale(0.7);
+            }
+            .envelope-wrapper:hover {
+                transform: scale(0.72);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="flap"></div>
+        <div class="envelope">
+            <div class="right-side"></div>
+            <div class="seal"></div>
+            <div class="card">
+                <h1>Daniela & Guilherme</h1>
+                <p>¡El inicio de nuestro para siempre!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelopeWrapper');
+        
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open');
+            
+            // Automatically redirects to the next section or reveals the full invitation after the animation finishes
+            setTimeout(() => {
+                // Option A: Scroll down if embedded on the same page
+                window.parent.postMessage('scrollDown', '*'); 
+                
+                // Option B: If you want to jump straight to page 2, change the URL below:
+                // window.location.href = "YOUR_CANVA_PAGE_2_LINK_HERE";
+            }, 1600);
+        });
+    </script>
+</body>
+</html>
