@@ -1,221 +1,242 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniela & Guilherme</title>
-    <style>
-        :root {
-            --bg-color: #E2E4D4; /* Sage green background matching your site */
-            --env-color: #F7F5EE; /* Off-white / Cream envelope base */
-            --env-inside: #EAE6DB; /* Shadow interior */
-            --flap-color: #ECE9DF; /* Envelope flap */
-            --gold: #D4AF37; /* Gold accent for the seal */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación D&G</title>
+  <style>
+    :root {
+      --wax-red: #8B0000;
+      --wax-dark: #580000;
+      --gold-light: #F7E08B;
+      --gold-mid: #D4AF37;
+      --gold-dark: #AA771C;
+      --paper-color: #FDFBF7;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            font-family: 'serif';
-        }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Cinzel', 'Georgia', serif;
+      background-color: #121212;
+    }
 
-        .envelope-wrapper {
-            position: relative;
-            cursor: pointer;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
+    /* Container for iframe */
+    #canva-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
 
-        .envelope-wrapper:hover {
-            transform: scale(0.95);
-        }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
-        .envelope {
-            position: relative;
-            width: 450px;
-            height: 300px;
-            background-color: var(--env-inside);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-radius: 0 0 8px 8px;
-        }
+    /* Envelope / Cover Overlay */
+    #envelope-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #2c2523 0%, #0f0c0b 100%);
+      transition: opacity 1.2s ease-in-out, visibility 1.2s;
+    }
 
-        /* Front pockets of the envelope */
-        .envelope::before {
-            content: '';
-            position: absolute;
-            z-index: 3;
-            border-left: 225px solid transparent;
-            border-right: 225px solid transparent;
-            border-bottom: 150px solid var(--env-color);
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-radius: 0 0 8px 8px;
-        }
+    .paper-texture {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: var(--paper-color);
+      background-image: 
+        radial-gradient(#e3ded1 1px, transparent 0),
+        radial-gradient(#e3ded1 1px, var(--paper-color) 0);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      opacity: 0.95;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
+    }
 
-        .envelope::after {
-            content: '';
-            position: absolute;
-            z-index: 3;
-            border-top: 150px solid transparent;
-            border-bottom: 150px solid transparent;
-            border-left: 230px solid var(--env-color);
-            top: 0;
-            left: 0;
-            border-radius: 0 0 0 8px;
-        }
+    .invitation-text {
+      position: absolute;
+      top: 25%;
+      text-align: center;
+      color: #4a3e3d;
+      letter-spacing: 3px;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      opacity: 0.85;
+      animation: pulseText 2s infinite alternate ease-in-out;
+    }
 
-        .right-side {
-            position: absolute;
-            z-index: 3;
-            border-top: 150px solid transparent;
-            border-bottom: 150px solid transparent;
-            border-right: 230px solid var(--env-color);
-            top: 0;
-            right: 0;
-            border-radius: 0 0 8px 0;
-        }
+    @keyframes pulseText {
+      from { opacity: 0.6; transform: scale(0.98); }
+      to { opacity: 0.95; transform: scale(1); }
+    }
 
-        /* Top Flap */
-        .flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-left: 225px solid transparent;
-            border-right: 225px solid transparent;
-            border-top: 160px solid var(--flap-color);
-            transform-origin: top;
-            z-index: 4;
-            transition: transform 0.5s ease-in-out, z-index 0.2s 0.2s;
-            width: 0;
-            height: 0;
-        }
+    /* 1800s Wax Seal Styling */
+    .seal-wrapper {
+      position: relative;
+      z-index: 20;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        /* Golden Wax Seal */
-        .seal {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #f3d06c 0%, var(--gold) 100%);
-            border-radius: 50%;
-            top: 135px;
-            left: 200px;
-            z-index: 5;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.5s ease-in-out, opacity 0.3s 0.3s;
-        }
+    .wax-seal {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #b22222, var(--wax-red) 65%, var(--wax-dark) 100%);
+      box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.5),
+        inset 0 3px 6px rgba(255, 255, 255, 0.3),
+        inset 0 -6px 12px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* Organic wax edge shape */
+      clip-path: polygon(
+        50% 0%, 65% 3%, 79% 8%, 91% 19%, 97% 33%, 
+        100% 50%, 96% 68%, 89% 82%, 76% 93%, 60% 98%, 
+        43% 97%, 27% 93%, 12% 81%, 3% 65%, 0% 48%, 
+        4% 31%, 13% 16%, 28% 6%
+      );
+    }
 
-        .seal::before {
-            content: '♥';
-            color: #fff;
-            font-size: 22px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
+    .seal-wrapper:hover .wax-seal {
+      transform: scale(1.04);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+    }
 
-        /* The Card inside */
-        .card {
-            position: absolute;
-            background: #FFFDF9;
-            width: 410px;
-            height: 260px;
-            left: 20px;
-            top: 20px;
-            z-index: 2;
-            transition: transform 0.6s 0.4s ease-in-out;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            padding: 30px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #EAE6DB;
-        }
+    /* Inner Ring and Monogram */
+    .seal-inner {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 2px dashed rgba(212, 175, 55, 0.6);
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
 
-        .card h1 {
-            font-family: 'Great Vibes', 'Georgia', serif;
-            color: #605141;
-            font-size: 28px;
-            font-weight: 300;
-            margin-bottom: 10px;
-        }
+    .monogram {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 2.2rem;
+      font-weight: bold;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 50%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1px;
+    }
 
-        .card p {
-            font-size: 13px;
-            color: #8A7F71;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    .seal-laurel {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+    }
 
-        /* Open State Animations */
-        .envelope-wrapper.open .flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
+    .sub-text {
+      font-size: 0.6rem;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      margin-top: -4px;
+      opacity: 0.8;
+      text-transform: uppercase;
+    }
 
-        .envelope-wrapper.open .seal {
-            transform: translateY(-100px) rotate(20deg);
-            opacity: 0;
-        }
+    /* Split Animation for Seal Opening */
+    .seal-wrapper.open .wax-seal {
+      animation: breakSeal 0.8s forwards ease-in-out;
+    }
 
-        .envelope-wrapper.open .card {
-            transform: translateY(-180px);
-            z-index: 4;
-        }
+    @keyframes breakSeal {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2) rotate(5deg); opacity: 0.9; }
+      100% { transform: scale(1.5) rotate(-10deg); opacity: 0; }
+    }
 
-        /* Responsive scale for mobile devices */
-        @media (max-width: 500px) {
-            .envelope-wrapper {
-                transform: scale(0.7);
-            }
-            .envelope-wrapper:hover {
-                transform: scale(0.72);
-            }
-        }
-    </style>
+    /* Overlay Slide Away */
+    #envelope-overlay.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="envelope-wrapper" id="envelopeWrapper">
-        <div class="flap"></div>
-        <div class="envelope">
-            <div class="right-side"></div>
-            <div class="seal"></div>
-            <div class="card">
-                <h1>Daniela & Guilherme</h1>
-                <p>¡El inicio de nuestro para siempre!</p>
-            </div>
-        </div>
-    </div>
+  <!-- Audio element (Replace src with your invitation song link if needed) -->
+  <audio id="invitation-music" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113253.mp3" type="audio/mpeg">
+  </audio>
 
-    <script>
-        const envelope = document.getElementById('envelopeWrapper');
-        
-        envelope.addEventListener('click', () => {
-            envelope.classList.add('open');
-            
-            // Automatically redirects to the next section or reveals the full invitation after the animation finishes
-            setTimeout(() => {
-                // Option A: Scroll down if embedded on the same page
-                window.parent.postMessage('scrollDown', '*'); 
-                
-                // Option B: If you want to jump straight to page 2, change the URL below:
-                // window.location.href = "YOUR_CANVA_PAGE_2_LINK_HERE";
-            }, 1600);
-        });
-    </script>
+  <!-- Canva Website Embed -->
+  <div id="canva-container">
+    <iframe id="canva-frame" src="https://tiger-f5rc4h.my.canva.site/invitaciondyg" allow="autoplay"></iframe>
+  </div>
+
+  <!-- Opening Envelope Screen -->
+  <div id="envelope-overlay">
+    <div class="paper-texture"></div>
+    <div class="invitation-text">Has sido invitado<br><span style="font-size: 0.8rem; font-style: italic;">Haz clic en el sello para abrir</span></div>
+    
+    <div class="seal-wrapper" id="sealBtn">
+      <div class="wax-seal">
+        <div class="seal-laurel"></div>
+        <div class="seal-inner">
+          <div class="monogram">D&G</div>
+          <div class="sub-text">Abrir</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sealBtn = document.getElementById('sealBtn');
+    const overlay = document.getElementById('envelope-overlay');
+    const music = document.getElementById('invitation-music');
+
+    sealBtn.addEventListener('click', () => {
+      // 1. Play Background Music
+      music.play().catch(error => {
+        console.log("Audio autoplay prevented by browser policy: ", error);
+      });
+
+      // 2. Trigger Seal Breaking Animation
+      sealBtn.classList.add('open');
+
+      // 3. Fade out overlay and reveal Canva site
+      setTimeout(() => {
+        overlay.classList.add('fade-out');
+      }, 600);
+    });
+  </script>
 </body>
 </html>
